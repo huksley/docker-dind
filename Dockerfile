@@ -9,7 +9,9 @@ run pip install docker-compose
 
 ENV JAVA_TOOL_OPTIONS -Dfile.encoding=UTF-8
 
-RUN ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime && \
+RUN locale-gen en_US.UTF-8 && \
+    localedef -i en_US -c -f UTF-8 en_US.UTF-8 && \
+    ln -fs /usr/share/zoneinfo/Europe/Moscow /etc/localtime && \
     echo "Europe/Moscow" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata && \
     sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
